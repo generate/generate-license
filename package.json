@@ -1,0 +1,58 @@
+{
+  "name": "generate-license",
+  "description": "Generate a license file for a GitHub project.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/generate/generate-license",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "generate/generate-license",
+  "bugs": {
+    "url": "https://github.com/generate/generate-license/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "generate-ask": "^0.2.0",
+    "generate-defaults": "^0.2.0",
+    "match-file": "^0.1.0",
+    "through2": "^2.0.1"
+  },
+  "devDependencies": {
+    "delete": "^0.3.0",
+    "generate": "^0.5.3",
+    "gulp-format-md": "^0.1.9",
+    "mocha": "^2.4.5"
+  },
+  "keywords": [
+    "generate",
+    "license"
+  ],
+  "lintDeps": {
+    "ignore": []
+  },
+  "verb": {
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "reflinks": [
+      "verb",
+      "generate"
+    ],
+    "layout": "default",
+    "toc": false,
+    "tasks": [
+      "readme"
+    ],
+    "lint": {
+      "reflinks": true
+    }
+  }
+}
