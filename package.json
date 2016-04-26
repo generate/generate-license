@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "files": [
+    "generator.js",
     "index.js"
   ],
   "main": "index.js",
@@ -43,8 +44,8 @@
       "gulp-format-md"
     ],
     "reflinks": [
-      "verb",
-      "generate"
+      "generate",
+      "verb"
     ],
     "layout": "default",
     "toc": false,
