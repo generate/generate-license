@@ -23,12 +23,12 @@
   "dependencies": {
     "generate-ask": "^0.2.0",
     "generate-defaults": "^0.2.0",
-    "match-file": "^0.1.0",
+    "match-file": "^0.2.0",
     "through2": "^2.0.1"
   },
   "devDependencies": {
     "delete": "^0.3.0",
-    "generate": "^0.5.3",
+    "generate": "^0.5.4",
     "gulp-format-md": "^0.1.9",
     "mocha": "^2.4.5"
   },
