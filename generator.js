@@ -14,17 +14,22 @@ module.exports = function(app) {
 
   app.use(require('generate-defaults'));
 
-  app.task('mit', function() {
+  app.task('mit', function(cb) {
     app.question('author.name', 'Author\'s name?');
     app.data('argv', app.get('cache.argv.orig'));
 
-    return app.src('*.tmpl', {cwd: templates()})
+    app.src('*.tmpl', {cwd: templates()})
+      .on('error', cb)
       .pipe(app.renderFile('*'))
+      .on('error', cb)
       .pipe(filter('mit.tmpl'))
+      .on('error', cb)
       .pipe(app.dest(function(file) {
         file.basename = app.option('license.basename') || 'LICENSE';
-        return app.option('dest');
-      }));
+        return app.option('dest') || app.cwd;
+      }))
+      .on('error', cb)
+      .on('end', cb)
   });
 
   // aliases
@@ -36,6 +41,11 @@ function filter(pattern, options) {
   var isMatch = matchFile.matcher(pattern, options);
 
   return through.obj(function(file, enc, next) {
+    if (file.isNull()) {
+      next();
+      return;
+    }
+
     if (isMatch(file)) {
       next(null, file);
     } else {
