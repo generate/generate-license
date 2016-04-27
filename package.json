@@ -11,7 +11,8 @@
   "license": "MIT",
   "files": [
     "generator.js",
-    "index.js"
+    "index.js",
+    "templates"
   ],
   "main": "index.js",
   "engines": {
@@ -21,7 +22,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "generate-defaults": "^0.2.0",
+    "generate-defaults": "^0.2.1",
     "match-file": "^0.2.0",
     "through2": "^2.0.1"
   },
