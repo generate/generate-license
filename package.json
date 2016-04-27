@@ -1,7 +1,7 @@
 {
   "name": "generate-license",
   "description": "Generate a license file for a GitHub project.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/generate/generate-license",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-license",
@@ -21,7 +21,6 @@
     "test": "mocha"
   },
   "dependencies": {
-    "generate-ask": "^0.2.0",
     "generate-defaults": "^0.2.0",
     "match-file": "^0.2.0",
     "through2": "^2.0.1"
