@@ -6,9 +6,8 @@ var matchFile = require('match-file');
 var through = require('through2');
 
 module.exports = function(app) {
-  if (!app || app.isRegistered('generate-license')) return;
+  if (app.isRegistered('generate-license')) return;
   app.use(require('generate-defaults'));
-  app.use(require('generate-ask'));
 
   app.task('mit', function() {
     app.question('author.name', 'Author\'s name?');

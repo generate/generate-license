@@ -24,7 +24,7 @@ function exists(name, cb) {
 
 describe('generate-license', function() {
   beforeEach(function() {
-    app = generate();
+    app = generate({cli: true, silent: true});
 
     app.option('dest', path.resolve(__dirname, 'actual'));
     app.option('askWhen', 'not-answered');
