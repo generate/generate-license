@@ -12,13 +12,25 @@ $ npm install generate-license --save
 
 ## CLI
 
+Run the `license` generator from the command line:
+
 ```sh
 $ gen license
 ```
 
 ## API
 
-Install locally with the following command: `npm install generate-license --save`.
+To use this generator programmatically, as a plugin or sub-generator, you must first install the generator locally.
+
+### Install
+
+Install with [npm](https://www.npmjs.com/):
+
+```sh
+$ npm install generate-license
+```
+
+### Usage
 
 Then use in your project:
 

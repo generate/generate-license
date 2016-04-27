@@ -7,6 +7,11 @@ var through = require('through2');
 
 module.exports = function(app) {
   if (app.isRegistered('generate-license')) return;
+
+  if (typeof app.ask === 'undefined') {
+    throw new Error('expected the base-questions plugin to be registered');
+  }
+
   app.use(require('generate-defaults'));
 
   app.task('mit', function() {
