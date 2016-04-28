@@ -14,19 +14,19 @@ module.exports = function(app) {
 
   app.use(require('generate-defaults'));
 
+  // customize prompt for `author.name` in mit.tmpl
   app.task('mit', function(cb) {
     app.question('author.name', 'Author\'s name?');
-    app.data('argv', app.get('cache.argv.orig'));
+
+    var name = app.option('license.basename') || 'LICENSE';
+    var dest = app.option('dest') || app.cwd;
 
     app.src('*.tmpl', {cwd: templates()})
-      .on('error', cb)
       .pipe(app.renderFile('*'))
-      .on('error', cb)
       .pipe(filter('mit.tmpl'))
-      .on('error', cb)
       .pipe(app.dest(function(file) {
-        file.basename = app.option('license.basename') || 'LICENSE';
-        return app.option('dest') || app.cwd;
+        file.basename = name;
+        return dest;
       }))
       .on('error', cb)
       .on('end', cb)
