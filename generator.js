@@ -14,8 +14,42 @@ module.exports = function(app) {
 
   app.use(require('generate-defaults'));
 
-  // customize prompt for `author.name` in mit.tmpl
+  /**
+   * Alias for the [mit](#mit) task.
+   *
+   * ```sh
+   * $ gen git
+   * ```
+   * @name default
+   * @api public
+   */
+
+  app.task('default', ['mit']);
+
+  /**
+   * Alias for the [mit](#mit) task.
+   *
+   * ```sh
+   * $ gen git:license
+   * ```
+   * @name license
+   * @api public
+   */
+
+  app.task('license', ['mit']);
+
+  /**
+   * Initialize a git repository, including `git add` and first commit.
+   *
+   * ```sh
+   * $ gen git:mit
+   * ```
+   * @name mit
+   * @api public
+   */
+
   app.task('mit', function(cb) {
+    // customize prompt for `author.name` in mit.tmpl
     app.question('author.name', 'Author\'s name?');
 
     var name = app.option('license.basename') || 'LICENSE';
@@ -31,10 +65,6 @@ module.exports = function(app) {
       .on('error', cb)
       .on('end', cb)
   });
-
-  // aliases
-  app.task('license', ['mit']);
-  app.task('default', ['license']);
 };
 
 function filter(pattern, options) {
