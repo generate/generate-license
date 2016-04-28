@@ -1,7 +1,7 @@
 {
   "name": "generate-license",
   "description": "Generate a license file for a GitHub project.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "homepage": "https://github.com/generate/generate-license",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-license",
@@ -33,8 +33,11 @@
     "mocha": "^2.4.5"
   },
   "keywords": [
+    "file",
     "generate",
-    "license"
+    "generator",
+    "license",
+    "template"
   ],
   "lintDeps": {
     "ignore": []
@@ -47,13 +50,13 @@
       "generate",
       "verb"
     ],
-    "layout": "default",
     "toc": false,
-    "tasks": [
-      "readme"
-    ],
+    "layout": "default",
     "lint": {
       "reflinks": true
-    }
+    },
+    "tasks": [
+      "readme"
+    ]
   }
 }
