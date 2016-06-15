@@ -24,7 +24,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('default', ['mit']);
+  app.task('default', { silent: true }, ['mit']);
 
   /**
    * Alias for the [mit](#mit) task.
@@ -48,22 +48,20 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('mit', function(cb) {
+  app.task('mit', { silent: true }, function(cb) {
     // customize prompt for `author.name` in mit.tmpl
     app.question('author.name', 'Author\'s name?');
 
     var name = app.option('license.basename') || 'LICENSE';
     var dest = app.option('dest') || app.cwd;
 
-    app.src('*.tmpl', {cwd: templates()})
+    return app.src('*.tmpl', {cwd: templates()})
       .pipe(app.renderFile('*'))
       .pipe(filter('mit.tmpl'))
       .pipe(app.dest(function(file) {
         file.basename = name;
         return dest;
-      }))
-      .on('error', cb)
-      .on('end', cb)
+      }));
   });
 };
 
