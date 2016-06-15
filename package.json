@@ -35,8 +35,10 @@
   "keywords": [
     "file",
     "generate",
+    "generateplugin",
     "generator",
     "license",
+    "plugin",
     "template"
   ],
   "lintDeps": {
@@ -48,7 +50,8 @@
     ],
     "reflinks": [
       "generate",
-      "verb"
+      "verb",
+      "verb-readme-generator"
     ],
     "toc": false,
     "layout": "default",
