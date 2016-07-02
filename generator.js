@@ -2,82 +2,73 @@
 
 var path = require('path');
 var templates = path.resolve.bind(path, __dirname, 'templates');
-var matchFile = require('match-file');
-var through = require('through2');
+var isValid = require('is-valid-app');
 
 module.exports = function(app) {
-  if (app.isRegistered('generate-license')) return;
+  if (!isValid(app, 'generate-license')) return;
 
-  if (typeof app.ask === 'undefined') {
-    throw new Error('expected the base-questions plugin to be registered');
-  }
+  /**
+   * Plugins
+   */
 
+  app.use(require('generate-collections'));
   app.use(require('generate-defaults'));
 
   /**
-   * Alias for the [mit](#mit) task.
+   * Generate a `LICENSE` file in the current working directory.
+   * _(You will be prompted for the file name to use)_.
    *
    * ```sh
-   * $ gen git
+   * $ gen license:mit
+   * # or
+   * $ gen license
    * ```
-   * @name default
+   * @name license:mit
    * @api public
    */
 
-  app.task('default', { silent: true }, ['mit']);
+  app.task('license', ['mit']);
+  app.task('mit', { silent: true }, function() {
+    return file(app, 'mit');
+  });
 
   /**
-   * Alias for the [mit](#mit) task.
+   * Generate a Creative Commons `LICENSE-CC` file in the current working directory.
+   * _(You will be prompted for the file name to use)_.
    *
    * ```sh
-   * $ gen git:license
+   * $ gen license:cc
+   * ```
+   * @name license:cc
+   * @api public
+   */
+
+  app.task('creative-commons', ['cc']);
+  app.task('cc', { silent: true }, function() {
+    return file(app, 'cc');
+  });
+
+  /**
+   * Alias for the [license](#license) task.
+   *
+   * ```sh
+   * $ gen license
    * ```
    * @name license
    * @api public
    */
 
-  app.task('license', ['mit']);
-
-  /**
-   * Initialize a git repository, including `git add` and first commit.
-   *
-   * ```sh
-   * $ gen git:mit
-   * ```
-   * @name mit
-   * @api public
-   */
-
-  app.task('mit', { silent: true }, function(cb) {
-    // customize prompt for `author.name` in mit.tmpl
-    app.question('author.name', 'Author\'s name?');
-
-    var name = app.option('license.basename') || 'LICENSE';
-    var dest = app.option('dest') || app.cwd;
-
-    return app.src('*.tmpl', {cwd: templates()})
-      .pipe(app.renderFile('*'))
-      .pipe(filter('mit.tmpl'))
-      .pipe(app.dest(function(file) {
-        file.basename = name;
-        return dest;
-      }));
-  });
+  app.task('default', { silent: true }, ['license']);
 };
 
-function filter(pattern, options) {
-  var isMatch = matchFile.matcher(pattern, options);
+/**
+ * Generate a file
+ */
 
-  return through.obj(function(file, enc, next) {
-    if (file.isNull()) {
-      next();
-      return;
-    }
-
-    if (isMatch(file)) {
-      next(null, file);
-    } else {
-      next();
-    }
-  });
+function file(app, name) {
+  var dest = app.option('dest') || app.cwd;
+  return app.src(templates(`${name}.tmpl`))
+    .pipe(app.renderFile('*'))
+    .pipe(app.conflicts(dest))
+    .pipe(app.dest(dest));
 }
