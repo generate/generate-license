@@ -5,30 +5,52 @@ var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var generate = require('generate');
+var npm = require('npm-install-global');
 var del = require('delete');
 var generator = require('./');
 var app;
 
-function exists(name, cb) {
-  var filepath = path.resolve(__dirname, 'actual', name);
+var cwd = path.resolve.bind(path, __dirname, 'actual');
 
+function exists(name, cb) {
   return function(err) {
     if (err) return cb(err);
-
+    var filepath = cwd(name);
     fs.stat(filepath, function(err, stat) {
+      if (err) return cb(err);
       assert(stat);
       del(path.dirname(filepath), cb);
     });
-  }
+  };
 }
 
 describe('generate-license', function() {
-  beforeEach(function() {
-    app = generate({cli: true, silent: true});
+  if (!process.env.CI && !process.env.TRAVIS) {
+    before(function(cb) {
+      npm.maybeInstall('generate', cb);
+    });
+  }
 
-    app.option('dest', path.resolve(__dirname, 'actual'));
+  beforeEach(function() {
+    app = generate({silent: true});
+    app.cwd = cwd();
+    app.option('dest', cwd());
     app.option('askWhen', 'not-answered');
-    app.data('author.name', 'Jon Schlinkert');
+    app.option('basename', 'LICENSE');
+
+    // provide template data to avoid prompts
+    app.data({
+      author: {
+        name: 'Jon Schlinkert',
+        username: 'jonschlnkert',
+        url: 'https://github.com/jonschlinkert'
+      },
+      project: {
+        name: 'foo',
+        description: 'bar',
+        version: '0.1.0'
+      }
+    });
   });
 
   describe('plugin', function() {
@@ -45,28 +67,101 @@ describe('generate-license', function() {
       assert.equal(count, 1);
       cb();
     });
-  });
 
-  describe('generator', function() {
-    it('should work as a plugin', function() {
+    it('should extend tasks onto the instance', function() {
       app.use(generator);
       assert(app.tasks.hasOwnProperty('default'));
-      assert(app.tasks.hasOwnProperty('mit'));
+      assert(app.tasks.hasOwnProperty('license'));
     });
 
-    it('should work as a generator', function(cb) {
+    it('should run the `default` task with .build', function(cb) {
+      app.use(generator);
+      app.build('default', exists('LICENSE', cb));
+    });
+
+    it('should run the `default` task with .generate', function(cb) {
+      app.use(generator);
+      app.generate('default', exists('LICENSE', cb));
+    });
+
+    it('should run the `license` task with .build', function(cb) {
+      app.use(generator);
+      app.build('license', exists('LICENSE', cb));
+    });
+
+    it('should run the `license` task with .generate', function(cb) {
+      app.use(generator);
+      app.generate('license', exists('LICENSE', cb));
+    });
+  });
+
+  if (!process.env.CI && !process.env.TRAVIS) {
+    describe('generator (CLI)', function() {
+      it('should run the default task using the `generate-license` name', function(cb) {
+        app.use(generator);
+        app.generate('generate-license', exists('LICENSE', cb));
+      });
+
+      it('should run the default task using the `license` generator alias', function(cb) {
+        app.use(generator);
+        app.generate('license', exists('LICENSE', cb));
+      });
+    });
+  }
+
+  describe('generator (API)', function() {
+    it('should run the default task on the generator', function(cb) {
       app.register('license', generator);
       app.generate('license', exists('LICENSE', cb));
     });
 
-    it('should run the `default` task', function(cb) {
+    it('should run the `license` task', function(cb) {
+      app.register('license', generator);
+      app.generate('license:license', exists('LICENSE', cb));
+    });
+
+    it('should run the `default` task when defined explicitly', function(cb) {
       app.register('license', generator);
       app.generate('license:default', exists('LICENSE', cb));
     });
+  });
 
-    it('should run the `mit` task', function(cb) {
-      app.register('license', generator);
-      app.generate('license:mit', exists('LICENSE', cb));
+  describe('sub-generator', function() {
+    it('should work as a sub-generator', function(cb) {
+      app.register('foo', function(foo) {
+        foo.register('license', generator);
+      });
+      app.generate('foo.license', exists('LICENSE', cb));
+    });
+
+    it('should run the `default` task by default', function(cb) {
+      app.register('foo', function(foo) {
+        foo.register('license', generator);
+      });
+      app.generate('foo.license', exists('LICENSE', cb));
+    });
+
+    it('should run the `license:default` task when defined explicitly', function(cb) {
+      app.register('foo', function(foo) {
+        foo.register('license', generator);
+      });
+      app.generate('foo.license:default', exists('LICENSE', cb));
+    });
+
+    it('should run the `license:license` task', function(cb) {
+      app.register('foo', function(foo) {
+        foo.register('license', generator);
+      });
+      app.generate('foo.license:license', exists('LICENSE', cb));
+    });
+
+    it('should work with nested sub-generators', function(cb) {
+      app
+        .register('foo', generator)
+        .register('bar', generator)
+        .register('baz', generator)
+
+      app.generate('foo.bar.baz', exists('LICENSE', cb));
     });
   });
 });
