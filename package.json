@@ -12,6 +12,8 @@
   "files": [
     "generator.js",
     "index.js",
+    "LICENSE",
+    "README.md",
     "templates"
   ],
   "main": "index.js",
@@ -22,44 +24,73 @@
     "test": "mocha"
   },
   "dependencies": {
-    "generate-defaults": "^0.2.1",
-    "match-file": "^0.2.0",
-    "through2": "^2.0.1"
+    "generate-collections": "^0.3.5",
+    "generate-defaults": "^0.3.1",
+    "is-valid-app": "^0.2.0"
   },
   "devDependencies": {
-    "delete": "^0.3.0",
-    "generate": "^0.5.4",
+    "delete": "^0.3.2",
+    "generate": "^0.8.0",
     "gulp-format-md": "^0.1.9",
-    "mocha": "^2.4.5"
+    "mocha": "^2.5.3",
+    "npm-install-global": "^0.1.2"
   },
   "keywords": [
+    "boilerplate",
+    "build",
+    "cli",
+    "cli-app",
+    "command-line",
+    "create",
+    "dev",
+    "development",
     "file",
+    "framework",
+    "front",
+    "frontend",
     "generate",
+    "generategenerator",
     "generateplugin",
     "generator",
+    "init",
+    "initialize",
     "license",
+    "new",
     "plugin",
-    "template"
+    "project",
+    "projects",
+    "scaffold",
+    "scaffolder",
+    "scaffolding",
+    "template",
+    "templates",
+    "webapp",
+    "yeoman",
+    "yo"
   ],
-  "lintDeps": {
-    "ignore": []
-  },
   "verb": {
+    "toc": false,
+    "layout": "common-minimal",
+    "tasks": [
+      "readme"
+    ],
     "plugins": [
       "gulp-format-md"
     ],
+    "related": {
+      "list": [
+        "generate-eslint",
+        "generate-install",
+        "generate-package"
+      ]
+    },
     "reflinks": [
       "generate",
       "verb",
       "verb-readme-generator"
     ],
-    "toc": false,
-    "layout": "default",
     "lint": {
       "reflinks": true
-    },
-    "tasks": [
-      "readme"
-    ]
+    }
   }
 }
