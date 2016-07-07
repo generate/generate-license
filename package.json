@@ -1,7 +1,7 @@
 {
   "name": "generate-license",
   "description": "Generate a license file for a GitHub project.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/generate/generate-license",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-license",
@@ -69,7 +69,7 @@
     "yo"
   ],
   "verb": {
-    "toc": false,
+    "toc": true,
     "layout": "common-minimal",
     "tasks": [
       "readme"
@@ -87,7 +87,11 @@
     "reflinks": [
       "generate",
       "verb",
-      "verb-readme-generator"
+      "verb-readme-generator",
+      "gulp",
+      "base",
+      "assemble",
+      "generate-dest"
     ],
     "lint": {
       "reflinks": true
