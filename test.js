@@ -19,6 +19,8 @@ function exists(name, cb) {
     fs.stat(filepath, function(err, stat) {
       if (err) return cb(err);
       assert(stat);
+      var str = fs.readFileSync(filepath, 'utf8');
+      assert(/Jon Schlinkert/.test(str));
       del(path.dirname(filepath), cb);
     });
   };

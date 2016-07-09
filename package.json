@@ -49,6 +49,8 @@
     "front",
     "frontend",
     "generate",
+    "generate-generator",
+    "generate-plugin",
     "generategenerator",
     "generateplugin",
     "generator",
@@ -85,13 +87,13 @@
       ]
     },
     "reflinks": [
-      "generate",
-      "verb",
-      "verb-readme-generator",
-      "gulp",
-      "base",
       "assemble",
-      "generate-dest"
+      "base",
+      "generate",
+      "generate-dest",
+      "gulp",
+      "verb",
+      "verb-readme-generator"
     ],
     "lint": {
       "reflinks": true
