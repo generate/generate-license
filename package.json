@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "generate-defaults": "^0.3.1",
-    "is-valid-app": "^0.2.0"
+    "is-valid-app": "^0.2.0",
+    "question-cache": "^0.5.1"
   },
   "devDependencies": {
     "delete": "^0.3.2",
