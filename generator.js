@@ -314,9 +314,9 @@ module.exports = function(app) {
   app.task('choose', { silent: true }, function (callback) {
     questions.ask('licenses', { save: false }, function (err, answers) {
       if (err) callback(err);
-      app.generate(`default:${answers.licenses}`, callback);
+      app.generate(`license:${answers.licenses}`, callback);
     });
-  })
+  });
 
   /**
    * Alias for the [license](#license) task.
