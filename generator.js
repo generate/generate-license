@@ -289,7 +289,7 @@ module.exports = function(app) {
   app.task('license', ['choose-license']);
   app.task('choose-license', { silent: true }, function(callback) {
     app.questions.list('licenses', 'Which license do you want to write?', {
-      default: 12,
+      default: 12, // <= index of the default license
       choices: [
         { name: ['Apache License 2.0'], value: 'apache-2.0' },
         { name: ['Artistic License 2.0'], value: 'artistic-2.0' },
