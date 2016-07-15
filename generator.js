@@ -270,7 +270,7 @@ module.exports = function(app) {
   });
 
   /**
-   * Prompts the user to choose the template to use for generating` a `LICENSE`
+   * Prompts the user to choose the template to use for generating a `LICENSE`
    * file in the current working directory. This task is also aliased as `choose-license`
    * to provide a semantic name for API usage (e.g. `app.generate('choose-license', cb)`).
    *
