@@ -1,7 +1,7 @@
 {
   "name": "generate-license",
   "description": "Generate a license file for a GitHub project.",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "homepage": "https://github.com/generate/generate-license",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-license",
