@@ -1,7 +1,9 @@
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 var isValid = require('is-valid-app');
+var cache;
 
 module.exports = function(app) {
   if (!isValid(app, 'generate-license')) return;
@@ -16,7 +18,7 @@ module.exports = function(app) {
    * Create tasks from templates
    */
 
-  tasks(app, 'templates');
+  createTasks(app, 'templates');
 
   /**
    * Prompts the user to choose the template to use for generating a `LICENSE`
@@ -86,14 +88,33 @@ module.exports = function(app) {
 };
 
 /**
- * Generate a file
+ * Create tasks and choices
  */
 
-function file(app, names) {
-  return app.src(files(names), { cwd: __dirname })
-    .pipe(app.renderFile('*'))
-    .pipe(app.conflicts(app.cwd))
-    .pipe(app.dest(app.cwd));
+function createTasks(app) {
+  var str = path.join(__dirname, 'templates/cache.json');
+  cache = cache || (cache = JSON.parse(fs.readFileSync(str)));
+  app.set('cache.choices', cache.choices);
+
+  // create `docs` collection for dynamically generator docs
+  app.create('docs');
+
+  // add a single document to use for creating our documentation
+  var doc = app.doc('licenses', {content: ''});
+  for (var key in cache.files) {
+    if (cache.files.hasOwnProperty(key)) {
+      var view = cache.files[key];
+      addLicenseDocs(doc, view);
+      task(app, view.stem, view.data.names);
+    }
+  }
+}
+
+// create a task for the current template
+function task(app, name, names) {
+  app.task(name, function() {
+    return file(app, names);
+  });
 }
 
 function files(names) {
@@ -104,29 +125,19 @@ function files(names) {
 }
 
 /**
- * Create tasks and choices
+ * Generate a file
  */
 
-function tasks(app, dir) {
-  // create `docs` collection
-  app.create('docs');
-  // create `licenses` collection
-  app.create('licenses', {cwd: path.join(__dirname, dir)});
-
-  // add a single document to use for creating our documentation
-  var doc = app.doc('licenses', {content: ''});
-  app.licenses.on('load', function(view) {
-    // build up choices
-    app.union('cache.choices', { name: [view.data.title], value: view.stem });
-    addLicenseDocs(doc, view);
-    // create a task for the current template
-    app.task(view.stem, function() {
-      return file(app, view.data.names);
-    });
-  });
-  // load templates onto the `licenses` collection
-  app.licenses('*.tmpl');
+function file(app, names) {
+  return app.src(files(names), { cwd: __dirname })
+    .pipe(app.renderFile('*'))
+    .pipe(app.conflicts(app.cwd))
+    .pipe(app.dest(app.cwd));
 }
+
+/**
+ * Get the index of the default task for inquirer
+ */
 
 function getDefault(app, choices) {
   choices.sort(function(a, b) {
@@ -143,6 +154,10 @@ function getDefault(app, choices) {
   return 0;
 }
 
+/**
+ * Generate the docs for a license
+ */
+
 function addLicenseDocs(doc, view) {
   var data = view.data;
   var extra = data.extra || '';
@@ -153,8 +168,6 @@ function addLicenseDocs(doc, view) {
     `Generate a ${data.title} \`${data.rename.basename}\` file in the current working directory.`,
     '',
     `${extra}`,
-    '',
-    '**Example**',
     '',
     '```sh',
     `$ gen license:${view.stem}`,

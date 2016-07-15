@@ -12,7 +12,6 @@ var yaml = require('js-yaml');
 var del = require('delete');
 
 var cwd = path.join.bind(path, __dirname);
-var cache = {};
 var paths = {
   support: cwd.bind(cwd, 'support'),
   templates: cwd.bind(cwd, 'templates'),
@@ -52,19 +51,20 @@ gulp.task('cache', function() {
 });
 
 gulp.task('convert', function(cb) {
-  var json = {};
+  var cache = {files: {}, choices: []};
   gulp.src('*.txt', {cwd: paths.licenses()})
     .pipe(through.obj(function(file, enc, next) {
       parser.parse(file, function(err, res) {
         if (err) return next(err);
         var newFile = convert(res, replacements);
-        json[newFile.stem] = {
+        cache.files[newFile.stem] = {
           content: newFile.contents.toString(),
           data: newFile.data,
           path: newFile.path,
           basename: newFile.basename,
           stem: newFile.stem
         };
+        cache.choices.push({ name: [newFile.data.title], value: newFile.stem });
         next(null, newFile);
       });
     }))
@@ -74,7 +74,7 @@ gulp.task('convert', function(cb) {
     }, function(cb) {
       var file = new File({
         path: 'cache.json',
-        contents: new Buffer(JSON.stringify(json, null, 2))
+        contents: new Buffer(JSON.stringify(cache, null, 2))
       });
       this.push(file);
       cb();
