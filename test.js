@@ -7,22 +7,35 @@ var assert = require('assert');
 var bddStdin = require('bdd-stdin');
 var generate = require('generate');
 var npm = require('npm-install-global');
+var gm = require('global-modules');
 var del = require('delete');
 var generator = require('./');
 var app;
 
-var cwd = path.resolve.bind(path, __dirname, 'actual');
+var actual = path.resolve.bind(path, __dirname, 'actual');
+function symlink(dir, cb) {
+  var src = path.resolve(dir);
+  var name = path.basename(src);
+  var dest = path.resolve(gm, name);
+  fs.stat(dest, function(err, stat) {
+    if (err) {
+      fs.symlink(src, dest, cb);
+    } else {
+      cb();
+    }
+  });
+}
 
 function exists(name, re, cb) {
   return function(err) {
     if (err) return cb(err);
-    var filepath = cwd(name);
+    var filepath = actual(name);
     fs.stat(filepath, function(err, stat) {
       if (err) return cb(err);
       assert(stat);
       var str = fs.readFileSync(filepath, 'utf8');
       assert(re.test(str));
-      del(path.dirname(filepath), cb);
+      del(actual(), cb);
     });
   };
 }
@@ -38,8 +51,8 @@ describe('generate-license', function() {
 
   beforeEach(function () {
     app = generate({silent: true});
-    app.cwd = cwd();
-    app.option('dest', cwd());
+    app.cwd = actual();
+    app.option('dest', actual());
     app.option('askWhen', 'not-answered');
     app.option('basename', 'LICENSE');
 
@@ -104,6 +117,10 @@ describe('generate-license', function() {
 
   if (!process.env.CI && !process.env.TRAVIS) {
     describe('generator (CLI)', function() {
+      before(function(cb) {
+        symlink(__dirname, cb);
+      });
+
       it('should run the default task using the `generate-license` name', function(cb) {
         bddStdin('\n');
         app.use(generator);
