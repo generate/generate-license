@@ -283,7 +283,7 @@ module.exports = function(app) {
    * $ gen license:choose --dest ./docs
    * $ gen dest license:choose
    * ```
-   * @name choose
+   * @name license
    * @api public
    */
 
