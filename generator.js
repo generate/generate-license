@@ -7,10 +7,9 @@ module.exports = function(app) {
   if (!isValid(app, 'generate-license')) return;
 
   var questions = new Questions();
-  questions.list(
-    'licenses',
-    'Which license do you want to write?',
-    [
+  questions.list('licenses', 'Which license do you want to write?', {
+    default: 2,
+    choices: [
       { name: ['Apache License 2.0'], value: 'apache-2.0' },
       { name: ['GNU General Public License v3.0'], value: 'gpl-3.0' },
       { name: ['MIT License'], value: 'mit' },
@@ -27,7 +26,7 @@ module.exports = function(app) {
       { name: ['Mozilla Public License 2.0'], value: 'mpl-2.0' },
       { name: ['The Unlicense'], value: 'unlicense' }
     ]
-  );
+  });
 
   /**
    * Plugins
