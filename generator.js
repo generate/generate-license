@@ -8,11 +8,9 @@ module.exports = function(app) {
 
   var questions = new Questions();
   questions.list('licenses', 'Which license do you want to write?', {
-    default: 2,
+    default: 12,
     choices: [
       { name: ['Apache License 2.0'], value: 'apache-2.0' },
-      { name: ['GNU General Public License v3.0'], value: 'gpl-3.0' },
-      { name: ['MIT License'], value: 'mit' },
       { name: ['Artistic License 2.0'], value: 'artistic-2.0' },
       { name: ['BSD 2-clause "Simplified" License'], value: 'bsd-2-clause' },
       { name: ['BSD 3-clause "New" or "Revised" License'], value: 'bsd-3-clause' },
@@ -20,9 +18,11 @@ module.exports = function(app) {
       { name: ['Eclipse Public License 1.0'], value: 'epl-1.0' },
       { name: ['GNU Affero General Public License v3.0'], value: 'agpl-3.0' },
       { name: ['GNU General Public License v2.0'], value: 'gpl-2.0' },
+      { name: ['GNU General Public License v3.0'], value: 'gpl-3.0' },
       { name: ['GNU Lesser General Public License v2.1'], value: 'lgpl-2.1' },
       { name: ['GNU Lesser General Public License v3.0'], value: 'lgpl-3.0' },
       { name: ['ISC License'], value: 'isc' },
+      { name: ['MIT License'], value: 'mit' },
       { name: ['Mozilla Public License 2.0'], value: 'mpl-2.0' },
       { name: ['The Unlicense'], value: 'unlicense' }
     ]
