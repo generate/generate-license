@@ -310,11 +310,12 @@ module.exports = function(app) {
    * @name license:choose
    * @api public
    */
-  app.task('license', ['choose']);
-  app.task('choose', { silent: true }, function (callback) {
-    questions.ask('licenses', { save: false }, function (err, answers) {
-      if (err) callback(err);
-      app.generate(`license:${answers.licenses}`, callback);
+
+  app.task('license', ['choose-license']);
+  app.task('choose-license', { silent: true }, function(callback) {
+    questions.ask('licenses', { save: false }, function(err, answers) {
+      if (err) return callback(err);
+      app.build(answers.licenses, callback);
     });
   });
 
@@ -327,7 +328,8 @@ module.exports = function(app) {
    * @name license
    * @api public
    */
-  app.task('default', { silent: true }, ['license']);
+
+  app.task('default', { silent: true }, ['choose-license']);
 };
 
 /**
