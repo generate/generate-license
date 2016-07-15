@@ -29,6 +29,8 @@ function exists(name, re, cb) {
 
 describe('generate-license', function() {
   if (!process.env.CI && !process.env.TRAVIS) {
+    // if tests are being run manually, this will install generate globally
+    // if it isn't already, so we can test behavior with Generate's CLI
     before(function(cb) {
       npm.maybeInstall('generate', cb);
     });
@@ -42,16 +44,12 @@ describe('generate-license', function() {
     app.option('basename', 'LICENSE');
 
     // provide template data to avoid prompts
+    app.data(require('./package'));
     app.data({
       author: {
         name: 'Jon Schlinkert',
         username: 'jonschlnkert',
         url: 'https://github.com/jonschlinkert'
-      },
-      project: {
-        name: 'foo',
-        description: 'bar',
-        version: '0.1.0'
       }
     });
   });
@@ -78,39 +76,47 @@ describe('generate-license', function() {
     });
   });
 
-/*
+  describe('tasks', function() {
+    beforeEach(function() {
+      app.use(generator);
+    });
+
     it('should run the `default` task with .build', function(cb) {
-      app.use(generator);
-      app.build('default', exists('LICENSE', cb));
+      bddStdin('\n');
+      app.build('default', exists('LICENSE', /MIT License/, cb));
     });
+
     it('should run the `default` task with .generate', function(cb) {
-      app.use(generator);
-      app.generate('default', exists('LICENSE', cb));
+      bddStdin('\n');
+      app.generate('default', exists('LICENSE', /MIT License/, cb));
     });
+
     it('should run the `license` task with .build', function(cb) {
-      app.use(generator);
-      app.build('license', exists('LICENSE', cb));
+      bddStdin('\n');
+      app.build('license', exists('LICENSE', /MIT License/, cb));
     });
 
     it('should run the `license` task with .generate', function(cb) {
-      app.use(generator);
-      app.generate('license', exists('LICENSE', cb));
+      bddStdin('\n');
+      app.generate('license', exists('LICENSE', /MIT License/, cb));
     });
+  });
 
   if (!process.env.CI && !process.env.TRAVIS) {
     describe('generator (CLI)', function() {
       it('should run the default task using the `generate-license` name', function(cb) {
+        bddStdin('\n');
         app.use(generator);
-        app.generate('generate-license', exists('LICENSE', cb));
+        app.generate('generate-license', exists('LICENSE', /MIT License/, cb));
       });
 
       it('should run the default task using the `license` generator alias', function(cb) {
+        bddStdin('\n');
         app.use(generator);
-        app.generate('license', exists('LICENSE', cb));
+        app.generate('license', exists('LICENSE', /MIT License/, cb));
       });
     });
   }
-  */
 
   describe('generator (API)', function() {
     it('should run the `agpl-3.0` task when defined explicitly', function(cb) {
@@ -127,22 +133,22 @@ describe('generate-license', function() {
     });
     it('should run the `mit` task when defined explicitly', function(cb) {
       app.register('license', generator);
-      app.generate('license:mit', exists('LICENSE', /Jon Schlinkert/, cb));
+      app.generate('license:mit', exists('LICENSE', /MIT License/, cb));
     });
     it('should run the default task on the generator', function (cb) {
       bddStdin('\n');
       app.register('license', generator);
-      app.generate('license', exists('LICENSE', /Apache License/, cb));
+      app.generate('license', exists('LICENSE', /MIT License/, cb));
     });
     it('should run the `license` task', function(cb) {
       bddStdin('\n');
       app.register('license', generator);
-      app.generate('license:license', exists('LICENSE', /Apache License/, cb));
+      app.generate('license:license', exists('LICENSE', /MIT License/, cb));
     });
     it('should run the `default` task when defined explicitly', function(cb) {
       bddStdin('\n');
       app.register('license', generator);
-      app.generate('license:default', exists('LICENSE', /Apache License/, cb));
+      app.generate('license:default', exists('LICENSE', /MIT License/, cb));
     });
   });
 
@@ -152,7 +158,7 @@ describe('generate-license', function() {
       app.register('foo', function(foo) {
         foo.register('license', generator);
       });
-      app.generate('foo.license', exists('LICENSE', /Apache License/, cb));
+      app.generate('foo.license', exists('LICENSE', /MIT License/, cb));
     });
 
     it('should run the `default` task by default', function(cb) {
@@ -160,7 +166,7 @@ describe('generate-license', function() {
       app.register('foo', function(foo) {
         foo.register('license', generator);
       });
-      app.generate('foo.license', exists('LICENSE', /Apache License/, cb));
+      app.generate('foo.license', exists('LICENSE', /MIT License/, cb));
     });
 
     it('should run the `license:default` task when defined explicitly', function(cb) {
@@ -168,7 +174,7 @@ describe('generate-license', function() {
       app.register('foo', function(foo) {
         foo.register('license', generator);
       });
-      app.generate('foo.license:default', exists('LICENSE', /Apache License/, cb));
+      app.generate('foo.license:default', exists('LICENSE', /MIT License/, cb));
     });
 
     it('should run the `license:license` task', function(cb) {
@@ -176,9 +182,9 @@ describe('generate-license', function() {
       app.register('foo', function(foo) {
         foo.register('license', generator);
       });
-      app.generate('foo.license:license', exists('LICENSE', /Apache License/, cb));
+      app.generate('foo.license:license', exists('LICENSE', /MIT License/, cb));
     });
-/*
+
     it('should work with nested sub-generators', function(cb) {
       bddStdin('\n');
       app
@@ -186,8 +192,7 @@ describe('generate-license', function() {
         .register('bar', generator)
         .register('baz', generator)
 
-      app.generate('foo.bar.baz', exists('LICENSE', /Apache License/, cb));
+      app.generate('foo.bar.baz', exists('LICENSE', /MIT License/, cb));
     });
-*/
   });
 });
