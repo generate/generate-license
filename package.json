@@ -33,6 +33,7 @@
     "generate": "^0.9.4",
     "global-modules": "^0.2.2",
     "gulp-format-md": "^0.1.9",
+    "intercept-stdout": "^0.1.2",
     "mocha": "^2.5.3",
     "npm-install-global": "^0.1.2"
   },
