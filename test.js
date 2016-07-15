@@ -42,7 +42,7 @@ function exists(name, re, cb) {
 }
 
 var intercepted = false;
-var unhook_intercept = intercept(function (txt) {
+var unhook_intercept = intercept(function(txt) {
   if (intercepted) {
     if (txt.indexOf('[?25h') === 1) {
       intercepted = false;
@@ -67,11 +67,11 @@ describe('generate-license', function() {
     });
   }
 
-  after(function () {
+  after(function() {
     unhook_intercept();
   });
 
-  beforeEach(function () {
+  beforeEach(function() {
     app = generate({silent: true});
     app.cwd = actual();
     app.option('dest', actual());
@@ -174,7 +174,7 @@ describe('generate-license', function() {
       app.register('license', generator);
       app.generate('license:mit', exists('LICENSE', /MIT License/, cb));
     });
-    it('should run the default task on the generator', function (cb) {
+    it('should run the default task on the generator', function(cb) {
       bddStdin('\n');
       app.register('license', generator);
       app.generate('license', exists('LICENSE', /MIT License/, cb));
