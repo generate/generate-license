@@ -20,7 +20,7 @@ module.exports = function(app) {
    * $ gen license:agpl-3.0 --dest ./docs
    * $ gen dest license:agpl-3.0
    * ```
-   * @name license:agpl-3.0
+   * @name agpl-3.0
    * @api public
    */
 
@@ -37,7 +37,7 @@ module.exports = function(app) {
    * $ gen license:apache-2.0 --dest ./docs
    * $ gen dest license:apache-2.0
    * ```
-   * @name license:apache-2.0
+   * @name apache-2.0
    * @api public
    */
 
@@ -54,7 +54,7 @@ module.exports = function(app) {
    * $ gen license:artistic-2.0 --dest ./docs
    * $ gen dest license:artistic-2.0
    * ```
-   * @name license:artistic-2.0
+   * @name artistic-2.0
    * @api public
    */
 
@@ -71,7 +71,7 @@ module.exports = function(app) {
    * $ gen license:bsd-2-clause --dest ./docs
    * $ gen dest license:bsd-2-clause
    * ```
-   * @name license:bsd-2-clause
+   * @name bsd-2-clause
    * @api public
    */
 
@@ -88,7 +88,7 @@ module.exports = function(app) {
    * $ gen license:bsd-3-clause --dest ./docs
    * $ gen dest license:bsd-3-clause
    * ```
-   * @name license:bsd-3-clause
+   * @name bsd-3-clause
    * @api public
    */
 
@@ -105,7 +105,7 @@ module.exports = function(app) {
    * $ gen license:cc0-1.0 --dest ./docs
    * $ gen dest license:cc0-1.0
    * ```
-   * @name license:cc0-1.0
+   * @name cc0-1.0
    * @api public
    */
 
@@ -122,7 +122,7 @@ module.exports = function(app) {
    * $ gen license:epl-1.0 --dest ./docs
    * $ gen dest license:epl-1.0
    * ```
-   * @name license:epl-1.0
+   * @name epl-1.0
    * @api public
    */
 
@@ -139,7 +139,7 @@ module.exports = function(app) {
    * $ gen license:gpl-2.0 --dest ./docs
    * $ gen dest license:gpl-2.0
    * ```
-   * @name license:gpl-2.0
+   * @name gpl-2.0
    * @api public
    */
 
@@ -156,7 +156,7 @@ module.exports = function(app) {
    * $ gen license:gpl-3.0 --dest ./docs
    * $ gen dest license:gpl-3.0
    * ```
-   * @name license:gpl-3.0
+   * @name gpl-3.0
    * @api public
    */
 
@@ -173,7 +173,7 @@ module.exports = function(app) {
    * $ gen license:isc --dest ./docs
    * $ gen dest license:isc
    * ```
-   * @name license:isc
+   * @name isc
    * @api public
    */
 
@@ -190,7 +190,7 @@ module.exports = function(app) {
    * $ gen license:lgpl-2.1 --dest ./docs
    * $ gen dest license:lgpl-2.1
    * ```
-   * @name license:lgpl-2.1
+   * @name lgpl-2.1
    * @api public
    */
 
@@ -210,7 +210,7 @@ module.exports = function(app) {
    * $ gen license:lgpl-3.0 --dest ./docs
    * $ gen dest license:lgpl-3.0
    * ```
-   * @name license:lgpl-3.0
+   * @name lgpl-3.0
    * @api public
    */
 
@@ -227,7 +227,7 @@ module.exports = function(app) {
    * $ gen license:mit --dest ./docs
    * $ gen dest license:mit
    * ```
-   * @name license:mit
+   * @name mit
    * @api public
    */
 
@@ -244,7 +244,7 @@ module.exports = function(app) {
    * $ gen license:mpl-2.0 --dest ./docs
    * $ gen dest license:mpl-2.0
    * ```
-   * @name license:mpl-2.0
+   * @name mpl-2.0
    * @api public
    */
 
@@ -261,7 +261,7 @@ module.exports = function(app) {
    * $ gen license:unlicense --dest ./docs
    * $ gen dest license:unlicense
    * ```
-   * @name license:unlicense
+   * @name unlicense
    * @api public
    */
 
@@ -270,22 +270,24 @@ module.exports = function(app) {
   });
 
   /**
-   * Prompts the user to choose the template to use for generating`
-   * a `LICENSE` file in the current working directory.
+   * Prompts the user to choose the template to use for generating` a `LICENSE`
+   * file in the current working directory. This task is also aliased as `choose-license`
+   * to provide a semantic name for API usage (e.g. `app.generate('choose-license', cb)`).
    *
    * ```sh
-   * $ gen license:choose
-   * $ gen license:choose --dest ./docs
-   * $ gen dest license:choose
-   * # or
    * $ gen license
    * $ gen license --dest ./docs
    * $ gen dest license
+   * # or
+   * $ gen license:choose
+   * $ gen license:choose --dest ./docs
+   * $ gen dest license:choose
    * ```
-   * @name license:choose
+   * @name choose
    * @api public
    */
 
+  app.task('choose', ['choose-license']);
   app.task('license', ['choose-license']);
   app.task('choose-license', { silent: true }, function(callback) {
     app.questions.list('licenses', 'Which license do you want to write?', {
@@ -316,12 +318,13 @@ module.exports = function(app) {
   });
 
   /**
-   * Alias for the [license](#license) task.
+   * Alias for the [license](#license) task, to allow this generator to be
+   * run with the following command:
    *
    * ```sh
    * $ gen license
    * ```
-   * @name license
+   * @name default
    * @api public
    */
 

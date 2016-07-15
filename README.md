@@ -12,8 +12,8 @@ Generate a license file for a GitHub project.
 - [Available tasks](#available-tasks)
 - [API usage](#api-usage)
   * [Install locally](#install-locally)
-  * [Register as a plugin](#register-as-a-plugin)
-  * [Run tasks](#run-tasks)
+  * [Use as a plugin](#use-as-a-plugin)
+  * [Register as a generator](#register-as-a-generator)
 - [Customization](#customization)
   * [Destination directory](#destination-directory)
   * [Overriding templates](#overriding-templates)
@@ -70,7 +70,7 @@ $ gen license
 
 **What will happen?**
 
-Running `$ gen license` will run the generator's [default task](#licensedefault), which creates a new MIT `LICENSE` file in the current working directory. The template can be [customized](#customization).
+Running `$ gen license` will run the generator's [default task](#default), which creates a new MIT `LICENSE` file in the current working directory. The template can be [customized](#customization).
 
 ### Running tasks
 
@@ -92,9 +92,218 @@ $ gen foo:bar
 
 **Default task**
 
-If a task is not explicitly passed Generate's CLI will run the `default` task.
+When a task name is not explicitly passed on the command line, Generate's CLI will run the [default](#default) task.
 
 ## Available tasks
+
+### [agpl-3.0](generator.js#L27)
+
+Generate a GNU Affero General Public License v3.0 `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:agpl-3.0
+$ gen license:agpl-3.0 --dest ./docs
+$ gen dest license:agpl-3.0
+```
+
+### [apache-2.0](generator.js#L44)
+
+Generate an Apache License 2.0 `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:apache-2.0
+$ gen license:apache-2.0 --dest ./docs
+$ gen dest license:apache-2.0
+```
+
+### [artistic-2.0](generator.js#L61)
+
+Generate an Artistic License 2.0 `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:artistic-2.0
+$ gen license:artistic-2.0 --dest ./docs
+$ gen dest license:artistic-2.0
+```
+
+### [bsd-2-clause](generator.js#L78)
+
+Generate a BSD 2-clause "Simplified" License `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:bsd-2-clause
+$ gen license:bsd-2-clause --dest ./docs
+$ gen dest license:bsd-2-clause
+```
+
+### [bsd-3-clause](generator.js#L95)
+
+Generate a BSD 3-clause "New" or "Revised" License `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:bsd-3-clause
+$ gen license:bsd-3-clause --dest ./docs
+$ gen dest license:bsd-3-clause
+```
+
+### [cc0-1.0](generator.js#L112)
+
+Generate a Creative Commons Zero v1.0 Universal `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:cc0-1.0
+$ gen license:cc0-1.0 --dest ./docs
+$ gen dest license:cc0-1.0
+```
+
+### [epl-1.0](generator.js#L129)
+
+Generate an Eclipse Public License 1.0 `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:epl-1.0
+$ gen license:epl-1.0 --dest ./docs
+$ gen dest license:epl-1.0
+```
+
+### [gpl-2.0](generator.js#L146)
+
+Generate a GNU General Public License v2.0 `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:gpl-2.0
+$ gen license:gpl-2.0 --dest ./docs
+$ gen dest license:gpl-2.0
+```
+
+### [gpl-3.0](generator.js#L163)
+
+Generate a GNU General Public License v3.0 `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:gpl-3.0
+$ gen license:gpl-3.0 --dest ./docs
+$ gen dest license:gpl-3.0
+```
+
+### [isc](generator.js#L180)
+
+Generate a ISC License `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:isc
+$ gen license:isc --dest ./docs
+$ gen dest license:isc
+```
+
+### [lgpl-2.1](generator.js#L197)
+
+Generate a GNU Lesser General Public License v2.1 `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:lgpl-2.1
+$ gen license:lgpl-2.1 --dest ./docs
+$ gen dest license:lgpl-2.1
+```
+
+### [lgpl-3.0](generator.js#L217)
+
+Generate a GNU Lesser General Public License v3.0 `LICENSE.lesser` file in the current working directory.
+
+This will also generate a GNU General Public License v3.0 `LICENSE`
+file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:lgpl-3.0
+$ gen license:lgpl-3.0 --dest ./docs
+$ gen dest license:lgpl-3.0
+```
+
+### [mit](generator.js#L234)
+
+Generate a MIT License `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:mit
+$ gen license:mit --dest ./docs
+$ gen dest license:mit
+```
+
+### [mpl-2.0](generator.js#L251)
+
+Generate a Mozilla Public License 2.0 `LICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:mpl-2.0
+$ gen license:mpl-2.0 --dest ./docs
+$ gen dest license:mpl-2.0
+```
+
+### [unlicense](generator.js#L268)
+
+Generate a The Unlicense `UNLICENSE` file in the current working directory.
+
+**Example**
+
+```sh
+$ gen license:unlicense
+$ gen license:unlicense --dest ./docs
+$ gen dest license:unlicense
+```
+
+### [choose](generator.js#L290)
+
+Prompts the user to choose the template to use for generating`a`LICENSE`file in the current working directory. This task is also aliased as`choose-license`to provide a semantic name for API usage (e.g.`app.generate('choose-license', cb)`).
+
+**Example**
+
+```sh
+$ gen license
+$ gen license --dest ./docs
+$ gen dest license
+# or
+$ gen license:choose
+$ gen license:choose --dest ./docs
+$ gen dest license:choose
+```
+
+### [default](generator.js#L331)
+
+Alias for the [license](#license) task, to allow this generator to be run with the following command:
+
+**Example**
+
+```sh
+$ gen license
+```
 
 Visit Generate's [documentation for tasks](https://github.com/generate/generate/blob/master/docs/tasks.md).
 
@@ -110,38 +319,61 @@ Install with [npm](https://www.npmjs.com/):
 $ npm install --save generate-license
 ```
 
-### Register as a plugin
+### Use as a plugin
 
-Inside your own [generator](https://github.com/generate/generate/blob/master/docs/generators.md):
-
-```js
-module.exports = function(app) {
-  // register generate-license as a plugin
-  app.use(require('generate-license'));
-};
-```
-
-### Run tasks
-
-Programmatically run tasks from `generate-license`:
+When used as a plugin, tasks from `generate-license` are added to your generator's instance.
 
 ```js
 module.exports = function(app) {
-  // register generate-license as a plugin
   app.use(require('generate-license'));
+  // do generator stuff
+};
+```
 
-  // run the `default` task on generate-license
-  app.task('foo', function(cb) {
-    app.generate('generate-license', cb);
-  });
+You can now run any tasks from `generate-license` as if they were part of your own generator.
 
-  // or run a specific task on generate-license 
-  // (where `foo` is the name of the task to run)
-  app.task('bar', function(cb) {
-    app.generate('generate-license:foo', cb);
+### Register as a generator
+
+When registered as a generator, tasks from `generate-license` are added to the "namespace" you give to the generator.
+
+```js
+module.exports = function(app) {
+  app.register('foo', require('generate-license'));
+  // generate
+};
+```
+
+**Running tasks**
+
+Pass the names of one or more tasks to run to the `.generate` method, prefixed with the namespace of the sub-generator (`foo`, in our example):
+
+**Examples**
+
+Run the [mit](#mit) task from `generate-license`:
+
+```js
+module.exports = function(app) {
+  app.register('foo', require('generate-license'));
+  
+  app.generate('foo:mit', function(err) {
+    if (err) console.log(err);
   });
 };
 ```
+
+Wrap the call to `.generate` in a task, so it can be called on demand:
+
+```js
+module.exports = function(app) {
+  app.register('foo', require('generate-license'));
+  
+  app.task('mit-license', function(cb) {
+    app.generate('foo:mit', cb);
+  });
+};
+```
+
+**More information**
 
 Visit the [generator docs](https://github.com/generate/generate/blob/master/docs/generators.md) to learn more about creating, installing, using and publishing generators.
 
@@ -197,4 +429,4 @@ Released under the [MIT license](https://github.com/generate/generate-license/bl
 
 ***
 
-_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on July 14, 2016._
+_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on July 15, 2016._
