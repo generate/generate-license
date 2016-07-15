@@ -25,8 +25,7 @@
   },
   "dependencies": {
     "generate-defaults": "^0.3.1",
-    "is-valid-app": "^0.2.0",
-    "question-cache": "^0.5.1"
+    "is-valid-app": "^0.2.0"
   },
   "devDependencies": {
     "bdd-stdin": "^0.2.0",

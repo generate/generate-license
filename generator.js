@@ -1,32 +1,9 @@
 'use strict';
 
 var isValid = require('is-valid-app');
-var Questions = require('question-cache');
 
 module.exports = function(app) {
   if (!isValid(app, 'generate-license')) return;
-
-  var questions = new Questions();
-  questions.list('licenses', 'Which license do you want to write?', {
-    default: 12,
-    choices: [
-      { name: ['Apache License 2.0'], value: 'apache-2.0' },
-      { name: ['Artistic License 2.0'], value: 'artistic-2.0' },
-      { name: ['BSD 2-clause "Simplified" License'], value: 'bsd-2-clause' },
-      { name: ['BSD 3-clause "New" or "Revised" License'], value: 'bsd-3-clause' },
-      { name: ['Creative Commons Zero v1.0 Universal'], value: 'cc0-1.0' },
-      { name: ['Eclipse Public License 1.0'], value: 'epl-1.0' },
-      { name: ['GNU Affero General Public License v3.0'], value: 'agpl-3.0' },
-      { name: ['GNU General Public License v2.0'], value: 'gpl-2.0' },
-      { name: ['GNU General Public License v3.0'], value: 'gpl-3.0' },
-      { name: ['GNU Lesser General Public License v2.1'], value: 'lgpl-2.1' },
-      { name: ['GNU Lesser General Public License v3.0'], value: 'lgpl-3.0' },
-      { name: ['ISC License'], value: 'isc' },
-      { name: ['MIT License'], value: 'mit' },
-      { name: ['Mozilla Public License 2.0'], value: 'mpl-2.0' },
-      { name: ['The Unlicense'], value: 'unlicense' }
-    ]
-  });
 
   /**
    * Plugins
@@ -311,7 +288,28 @@ module.exports = function(app) {
 
   app.task('license', ['choose-license']);
   app.task('choose-license', { silent: true }, function(callback) {
-    questions.ask('licenses', { save: false }, function(err, answers) {
+    app.questions.list('licenses', 'Which license do you want to write?', {
+      default: 12,
+      choices: [
+        { name: ['Apache License 2.0'], value: 'apache-2.0' },
+        { name: ['Artistic License 2.0'], value: 'artistic-2.0' },
+        { name: ['BSD 2-clause "Simplified" License'], value: 'bsd-2-clause' },
+        { name: ['BSD 3-clause "New" or "Revised" License'], value: 'bsd-3-clause' },
+        { name: ['Creative Commons Zero v1.0 Universal'], value: 'cc0-1.0' },
+        { name: ['Eclipse Public License 1.0'], value: 'epl-1.0' },
+        { name: ['GNU Affero General Public License v3.0'], value: 'agpl-3.0' },
+        { name: ['GNU General Public License v2.0'], value: 'gpl-2.0' },
+        { name: ['GNU General Public License v3.0'], value: 'gpl-3.0' },
+        { name: ['GNU Lesser General Public License v2.1'], value: 'lgpl-2.1' },
+        { name: ['GNU Lesser General Public License v3.0'], value: 'lgpl-3.0' },
+        { name: ['ISC License'], value: 'isc' },
+        { name: ['MIT License'], value: 'mit' },
+        { name: ['Mozilla Public License 2.0'], value: 'mpl-2.0' },
+        { name: ['The Unlicense'], value: 'unlicense' }
+      ]
+    });
+
+    app.ask('licenses', { save: false }, function(err, answers) {
       if (err) return callback(err);
       app.build(answers.licenses, callback);
     });
