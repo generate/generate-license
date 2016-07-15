@@ -5,6 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var bddStdin = require('bdd-stdin');
+var intercept = require("intercept-stdout");
 var generate = require('generate');
 var npm = require('npm-install-global');
 var gm = require('global-modules');
@@ -40,6 +41,23 @@ function exists(name, re, cb) {
   };
 }
 
+var intercepted = false;
+var unhook_intercept = intercept(function (txt) {
+  if (intercepted) {
+    if (txt.indexOf('[?25h') === 1) {
+      intercepted = false;
+    }
+    return '';
+  } else {
+    if (txt.indexOf('Which license do you want to write?') !== -1) {
+      intercepted = true;
+      return '';
+    } else {
+      return txt;
+    }
+  }
+});
+
 describe('generate-license', function() {
   if (!process.env.CI && !process.env.TRAVIS) {
     // if tests are being run manually, this will install generate globally
@@ -48,6 +66,10 @@ describe('generate-license', function() {
       npm.maybeInstall('generate', cb);
     });
   }
+
+  after(function () {
+    unhook_intercept();
+  });
 
   beforeEach(function () {
     app = generate({silent: true});
