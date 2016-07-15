@@ -48,7 +48,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('agpl-3.0', { silent: true }, function () {
+  app.task('agpl-3.0', { silent: true }, function() {
     return file(app, 'agpl-3.0');
   });
 
@@ -65,7 +65,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('apache-2.0', { silent: true }, function () {
+  app.task('apache-2.0', { silent: true }, function() {
     return file(app, 'apache-2.0');
   });
 
@@ -82,7 +82,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('artistic-2.0', { silent: true }, function () {
+  app.task('artistic-2.0', { silent: true }, function() {
     return file(app, 'artistic-2.0');
   });
 
@@ -99,7 +99,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('bsd-2-clause', { silent: true }, function () {
+  app.task('bsd-2-clause', { silent: true }, function() {
     return file(app, 'bsd-2-clause');
   });
 
@@ -116,7 +116,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('bsd-3-clause', { silent: true }, function () {
+  app.task('bsd-3-clause', { silent: true }, function() {
     return file(app, 'bsd-3-clause');
   });
 
@@ -133,7 +133,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('cc0-1.0', { silent: true }, function () {
+  app.task('cc0-1.0', { silent: true }, function() {
     return file(app, 'cc0-1.0');
   });
 
@@ -150,7 +150,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('epl-1.0', { silent: true }, function () {
+  app.task('epl-1.0', { silent: true }, function() {
     return file(app, 'epl-1.0');
   });
 
@@ -167,7 +167,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('gpl-2.0', { silent: true }, function () {
+  app.task('gpl-2.0', { silent: true }, function() {
     return file(app, 'gpl-2.0');
   });
 
@@ -184,7 +184,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('gpl-3.0', { silent: true }, function () {
+  app.task('gpl-3.0', { silent: true }, function() {
     return file(app, 'gpl-3.0');
   });
 
@@ -201,7 +201,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('isc', { silent: true }, function () {
+  app.task('isc', { silent: true }, function() {
     return file(app, 'isc');
   });
 
@@ -218,7 +218,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('lgpl-2.1', { silent: true }, function () {
+  app.task('lgpl-2.1', { silent: true }, function() {
     return file(app, 'lgpl-2.1');
   });
 
@@ -238,7 +238,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('lgpl-3.0', ['gpl-3.0'], function () {
+  app.task('lgpl-3.0', ['gpl-3.0'], function() {
     return file(app, 'lgpl-3.0');
   });
 
@@ -255,7 +255,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('mit', { silent: true }, function () {
+  app.task('mit', { silent: true }, function() {
     return file(app, 'mit');
   });
 
@@ -272,7 +272,7 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('mpl-2.0', { silent: true }, function () {
+  app.task('mpl-2.0', { silent: true }, function() {
     return file(app, 'mpl-2.0');
   });
 
@@ -289,10 +289,9 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('unlicense', { silent: true }, function () {
+  app.task('unlicense', { silent: true }, function() {
     return file(app, 'unlicense');
   });
-
 
   /**
    * Prompts the user to choose the template to use for generating`
