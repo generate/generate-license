@@ -21,6 +21,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
+    "pretest": "npm run transform",
+    "transform": "gen templates-transform --template .transform.tmpl --source ./templates",
     "test": "mocha"
   },
   "dependencies": {
@@ -31,6 +33,7 @@
     "bdd-stdin": "^0.2.0",
     "delete": "^0.3.2",
     "generate": "^0.9.4",
+    "generate-templates-transform": "git+https://github.com/pointnet/generate-templates-transform.git",
     "global-modules": "^0.2.2",
     "gulp-format-md": "^0.1.9",
     "intercept-stdout": "^0.1.2",
