@@ -1,0 +1,48 @@
+---
+rename:
+  basename: generator.tasks.js
+---
+'use strict';
+<% var separator = '', sorted = templates.sort(function(a, b) { if (a.metadata.description > b.metadata.description) return 1; if (a.metadata.description < b.metadata.description) return -1; return 0; }) %>
+module.exports = function(app, base, env, options) {
+<% templates.forEach(function(template) { %>  /**
+   * Generate a <%= template.metadata.description %> `<%= template.metadata.filename %>`
+   * file in the current working directory.
+   *<%= template.metadata.extra ? template.metadata.extra.split('*').join('\n   *') : "" %>
+   * ```sh
+   * $ gen license:<%= template.metadata.name %>
+   * $ gen license:<%= template.metadata.name %> --dest ./docs
+   * $ gen dest license:<%= template.metadata.name %>
+   * ```
+   * @name <%= template.metadata.name %>
+   * @api public
+   */
+
+  app.task('<%= template.metadata.name %>', <%= template.metadata.task ? "['" + template.metadata.task + "']" : "{ silent: true }" %>, function() {
+    return file(app, '<%= template.file.relative %>');
+  });
+
+<% }) %>  app.task('choose-license', { silent: true }, function(callback) {
+    app.questions.list('licenses', 'Which license do you want to write?', {
+      default: <%= sorted.findIndex(function(item) { return item.metadata.name === 'mit'}) %>,
+      choices: [
+        <% sorted.forEach(function(template) {%><%= separator %>{ name: ['<%= template.metadata.description %>'], value: '<%= template.metadata.name %>' }<% separator = ',\n        ' }) %>
+      ]
+    });
+    app.ask('licenses', { save: false }, function(err, answers) {
+      if (err) return callback(err);
+      app.build(answers.licenses, callback);
+    });
+  });
+};
+
+/**
+ * Generate a file
+ */
+
+function file(app, name) {
+  return app.src(name, { cwd: __dirname })
+    .pipe(app.renderFile('*'))
+    .pipe(app.conflicts(app.cwd))
+    .pipe(app.dest(app.cwd));
+}
