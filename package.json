@@ -11,6 +11,7 @@
   "license": "MIT",
   "files": [
     "generator.js",
+    "generator.tasks.js",
     "index.js",
     "LICENSE",
     "README.md",
