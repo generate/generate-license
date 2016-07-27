@@ -1,8 +1,9 @@
 # generate-license [![NPM version](https://img.shields.io/npm/v/generate-license.svg?style=flat)](https://www.npmjs.com/package/generate-license) [![NPM downloads](https://img.shields.io/npm/dm/generate-license.svg?style=flat)](https://npmjs.org/package/generate-license) [![Build Status](https://img.shields.io/travis/generate/generate-license.svg?style=flat)](https://travis-ci.org/generate/generate-license)
 
-> Generate a license file for a GitHub project.
+Generate a license file for a GitHub project.
 
-![generate-license demo](https://raw.githubusercontent.com/generate/generate-license/master/demo.gif)
+<br>
+![generate-license demo](https://raw.githubusercontent.com/generate/generate-license/master/docs/demo.gif)
 
 ## Table of Contents
 
@@ -122,11 +123,19 @@ When a task name is not explicitly passed on the command line, Generate's CLI wi
 
 ## Available tasks
 
-### [agpl-3.0](generator.js#L27)
+### afl-3.0
+
+Generate a Academic Free License v3.0 `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:afl-3.0
+$ gen license:afl-3.0 --dest ./docs
+$ gen dest license:afl-3.0
+```
+
+### agpl-3.0
 
 Generate a GNU Affero General Public License v3.0 `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:agpl-3.0
@@ -134,11 +143,9 @@ $ gen license:agpl-3.0 --dest ./docs
 $ gen dest license:agpl-3.0
 ```
 
-### [apache-2.0](generator.js#L44)
+### apache-2.0
 
-Generate an Apache License 2.0 `LICENSE` file in the current working directory.
-
-**Example**
+Generate a Apache License 2.0 `LICENSE` file in the current working directory.
 
 ```sh
 $ gen license:apache-2.0
@@ -146,11 +153,9 @@ $ gen license:apache-2.0 --dest ./docs
 $ gen dest license:apache-2.0
 ```
 
-### [artistic-2.0](generator.js#L61)
+### artistic-2.0
 
-Generate an Artistic License 2.0 `LICENSE` file in the current working directory.
-
-**Example**
+Generate a Artistic License 2.0 `LICENSE` file in the current working directory.
 
 ```sh
 $ gen license:artistic-2.0
@@ -158,11 +163,9 @@ $ gen license:artistic-2.0 --dest ./docs
 $ gen dest license:artistic-2.0
 ```
 
-### [bsd-2-clause](generator.js#L78)
+### bsd-2-clause
 
 Generate a BSD 2-clause "Simplified" License `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:bsd-2-clause
@@ -170,11 +173,19 @@ $ gen license:bsd-2-clause --dest ./docs
 $ gen dest license:bsd-2-clause
 ```
 
-### [bsd-3-clause](generator.js#L95)
+### bsd-3-clause-clear
+
+Generate a BSD 3-clause Clear License `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:bsd-3-clause-clear
+$ gen license:bsd-3-clause-clear --dest ./docs
+$ gen dest license:bsd-3-clause-clear
+```
+
+### bsd-3-clause
 
 Generate a BSD 3-clause "New" or "Revised" License `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:bsd-3-clause
@@ -182,11 +193,29 @@ $ gen license:bsd-3-clause --dest ./docs
 $ gen dest license:bsd-3-clause
 ```
 
-### [cc0-1.0](generator.js#L112)
+### cc-by-4.0
+
+Generate a Creative Commons Attribution 4.0 `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:cc-by-4.0
+$ gen license:cc-by-4.0 --dest ./docs
+$ gen dest license:cc-by-4.0
+```
+
+### cc-by-sa-4.0
+
+Generate a Creative Commons Attribution Share Alike 4.0 `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:cc-by-sa-4.0
+$ gen license:cc-by-sa-4.0 --dest ./docs
+$ gen dest license:cc-by-sa-4.0
+```
+
+### cc0-1.0
 
 Generate a Creative Commons Zero v1.0 Universal `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:cc0-1.0
@@ -194,11 +223,9 @@ $ gen license:cc0-1.0 --dest ./docs
 $ gen dest license:cc0-1.0
 ```
 
-### [epl-1.0](generator.js#L129)
+### epl-1.0
 
-Generate an Eclipse Public License 1.0 `LICENSE` file in the current working directory.
-
-**Example**
+Generate a Eclipse Public License 1.0 `LICENSE` file in the current working directory.
 
 ```sh
 $ gen license:epl-1.0
@@ -206,11 +233,19 @@ $ gen license:epl-1.0 --dest ./docs
 $ gen dest license:epl-1.0
 ```
 
-### [gpl-2.0](generator.js#L146)
+### eupl-1.1
+
+Generate a European Union Public License 1.1 `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:eupl-1.1
+$ gen license:eupl-1.1 --dest ./docs
+$ gen dest license:eupl-1.1
+```
+
+### gpl-2.0
 
 Generate a GNU General Public License v2.0 `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:gpl-2.0
@@ -218,11 +253,9 @@ $ gen license:gpl-2.0 --dest ./docs
 $ gen dest license:gpl-2.0
 ```
 
-### [gpl-3.0](generator.js#L163)
+### gpl-3.0
 
 Generate a GNU General Public License v3.0 `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:gpl-3.0
@@ -230,11 +263,9 @@ $ gen license:gpl-3.0 --dest ./docs
 $ gen dest license:gpl-3.0
 ```
 
-### [isc](generator.js#L180)
+### isc
 
 Generate a ISC License `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:isc
@@ -242,11 +273,9 @@ $ gen license:isc --dest ./docs
 $ gen dest license:isc
 ```
 
-### [lgpl-2.1](generator.js#L197)
+### lgpl-2.1
 
 Generate a GNU Lesser General Public License v2.1 `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:lgpl-2.1
@@ -254,14 +283,11 @@ $ gen license:lgpl-2.1 --dest ./docs
 $ gen dest license:lgpl-2.1
 ```
 
-### [lgpl-3.0](generator.js#L217)
+### lgpl-3.0
 
 Generate a GNU Lesser General Public License v3.0 `LICENSE.lesser` file in the current working directory.
 
-This will also generate a GNU General Public License v3.0 `LICENSE`
-file in the current working directory.
-
-**Example**
+This will also generate a GNU General Public License v3.0 `LICENSE` * file in the current working directory.
 
 ```sh
 $ gen license:lgpl-3.0
@@ -269,11 +295,19 @@ $ gen license:lgpl-3.0 --dest ./docs
 $ gen dest license:lgpl-3.0
 ```
 
-### [mit](generator.js#L234)
+### lppl-1.3c
+
+Generate a LaTeX Project Public License v1.3c `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:lppl-1.3c
+$ gen license:lppl-1.3c --dest ./docs
+$ gen dest license:lppl-1.3c
+```
+
+### mit
 
 Generate a MIT License `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:mit
@@ -281,11 +315,9 @@ $ gen license:mit --dest ./docs
 $ gen dest license:mit
 ```
 
-### [mpl-2.0](generator.js#L251)
+### mpl-2.0
 
 Generate a Mozilla Public License 2.0 `LICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:mpl-2.0
@@ -293,11 +325,49 @@ $ gen license:mpl-2.0 --dest ./docs
 $ gen dest license:mpl-2.0
 ```
 
-### [unlicense](generator.js#L268)
+### ms-pl
+
+Generate a Microsoft Public License `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:ms-pl
+$ gen license:ms-pl --dest ./docs
+$ gen dest license:ms-pl
+```
+
+### ms-rl
+
+Generate a Microsoft Reciprocal License `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:ms-rl
+$ gen license:ms-rl --dest ./docs
+$ gen dest license:ms-rl
+```
+
+### ofl-1.1
+
+Generate a SIL Open Font License 1.1 `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:ofl-1.1
+$ gen license:ofl-1.1 --dest ./docs
+$ gen dest license:ofl-1.1
+```
+
+### osl-3.0
+
+Generate a Open Software License 3.0 `LICENSE` file in the current working directory.
+
+```sh
+$ gen license:osl-3.0
+$ gen license:osl-3.0 --dest ./docs
+$ gen dest license:osl-3.0
+```
+
+### unlicense
 
 Generate a The Unlicense `UNLICENSE` file in the current working directory.
-
-**Example**
 
 ```sh
 $ gen license:unlicense
@@ -305,30 +375,24 @@ $ gen license:unlicense --dest ./docs
 $ gen dest license:unlicense
 ```
 
-### [license](generator.js#L290)
+### wtfpl
 
-Prompts the user to choose the template to use for generating a `LICENSE` file in the current working directory. This task is also aliased as `choose-license` to provide a semantic name for API usage (e.g. `app.generate('choose-license', cb)`).
-
-**Example**
+Generate a Do What The F*ck You Want To Public License `LICENSE` file in the current working directory.
 
 ```sh
-$ gen license
-$ gen license --dest ./docs
-$ gen dest license
-# or
-$ gen license:choose
-$ gen license:choose --dest ./docs
-$ gen dest license:choose
+$ gen license:wtfpl
+$ gen license:wtfpl --dest ./docs
+$ gen dest license:wtfpl
 ```
 
-### [default](generator.js#L331)
+### zlib
 
-Alias for the [license](#license) task, to allow this generator to be run with the following command:
-
-**Example**
+Generate a zlib License `LICENSE` file in the current working directory.
 
 ```sh
-$ gen license
+$ gen license:zlib
+$ gen license:zlib --dest ./docs
+$ gen dest license:zlib
 ```
 
 Visit Generate's [documentation for tasks](https://github.com/generate/generate/blob/master/docs/tasks.md).
@@ -467,7 +531,7 @@ $ npm install -d && npm test
 ### License
 
 Copyright © 2016, [Jon Schlinkert](https://github.com/jonschlinkert).
-Released under the [MIT license](https://github.com/generate/generate-license/blob/master/LICENSE).
+MIT
 
 ***
 

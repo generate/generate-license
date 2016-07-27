@@ -5,7 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var bddStdin = require('bdd-stdin');
-var intercept = require("intercept-stdout");
+var intercept = require('intercept-stdout');
 var generate = require('generate');
 var npm = require('npm-install-global');
 var gm = require('global-modules');
@@ -229,7 +229,7 @@ describe('generate-license', function() {
       app
         .register('foo', generator)
         .register('bar', generator)
-        .register('baz', generator)
+        .register('baz', generator);
 
       app.generate('foo.bar.baz', exists('LICENSE', /MIT License/, cb));
     });
