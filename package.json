@@ -24,7 +24,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "generate-defaults": "^0.5.0",
+    "generate-defaults": "^0.6.0",
     "is-valid-app": "^0.2.0"
   },
   "devDependencies": {
