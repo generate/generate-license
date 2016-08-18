@@ -11,7 +11,9 @@
   "license": "MIT",
   "files": [
     "generator.js",
+    "generators",
     "index.js",
+    "lib",
     "LICENSE",
     "README.md",
     "templates"
@@ -25,17 +27,28 @@
   },
   "dependencies": {
     "generate-defaults": "^0.6.0",
-    "is-valid-app": "^0.2.0"
+    "inquirer": "^1.1.2",
+    "inquirer-autocomplete-prompt": "^0.2.0",
+    "is-valid-app": "^0.2.0",
+    "lazy-cache": "^2.0.1",
+    "through2": "^2.0.1",
+    "vinyl": "^1.2.0"
   },
   "devDependencies": {
     "bdd-stdin": "^0.2.0",
+    "copy": "^0.3.0",
     "delete": "^0.3.2",
+    "extend-shallow": "^2.0.1",
     "generate": "^0.9.8",
+    "gh-clone": "^0.5.0",
     "global-modules": "^0.2.3",
+    "gulp": "^3.9.1",
     "gulp-format-md": "^0.1.10",
     "intercept-stdout": "^0.1.2",
+    "js-yaml": "^3.6.1",
     "mocha": "^3.0.2",
-    "npm-install-global": "^0.1.2"
+    "npm-install-global": "^0.1.2",
+    "parser-front-matter": "^1.6.2"
   },
   "keywords": [
     "boilerplate",
