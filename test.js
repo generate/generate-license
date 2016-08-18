@@ -14,20 +14,12 @@ var generator = require('./');
 var app;
 
 var actual = path.resolve.bind(path, __dirname, 'actual');
-function symlink(dir, cb) {
-  var src = path.resolve(dir);
-  var name = path.basename(src);
-  var dest = path.resolve(gm, name);
-  fs.stat(dest, function(err, stat) {
-    if (err) {
-      fs.symlink(src, dest, cb);
-    } else {
-      cb();
-    }
-  });
-}
-
 function exists(name, re, cb) {
+  if (typeof re === 'function') {
+    cb = re;
+    re = /./;
+  }
+
   return function(err) {
     if (err) return cb(err);
     var filepath = actual(name);
@@ -42,7 +34,7 @@ function exists(name, re, cb) {
 }
 
 var intercepted = false;
-var unhook_intercept = intercept(function(txt) {
+var unhookIntercept = intercept(function(txt) {
   if (intercepted) {
     if (txt.indexOf('[?25h') === 1) {
       intercepted = false;
@@ -68,7 +60,7 @@ describe('generate-license', function() {
   }
 
   after(function() {
-    unhook_intercept();
+    unhookIntercept();
   });
 
   beforeEach(function() {
@@ -77,7 +69,7 @@ describe('generate-license', function() {
     app.option('dest', actual());
     app.option('askWhen', 'not-answered');
     app.option('basename', 'LICENSE');
-
+    app.option('defaultLicense', 'mit');
     // provide template data to avoid prompts
     app.data(require('./package'));
     app.data({
@@ -139,10 +131,6 @@ describe('generate-license', function() {
 
   if (!process.env.CI && !process.env.TRAVIS) {
     describe('generator (CLI)', function() {
-      before(function(cb) {
-        symlink(__dirname, cb);
-      });
-
       it('should run the default task using the `generate-license` name', function(cb) {
         bddStdin('\n');
         app.use(generator);
@@ -229,8 +217,7 @@ describe('generate-license', function() {
       app
         .register('foo', generator)
         .register('bar', generator)
-        .register('baz', generator)
-
+        .register('baz', generator);
       app.generate('foo.bar.baz', exists('LICENSE', /MIT License/, cb));
     });
   });

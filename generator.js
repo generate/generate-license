@@ -26,20 +26,18 @@ module.exports = function(app) {
   });
 
   /**
-   * Prompts the user to choose the template to use for generating a `LICENSE`
-   * file in the current working directory. This task is also aliased as `choose-license`
-   * to provide a semantic name for API usage (e.g. `app.generate('choose-license', cb)`).
+   * The `default` task prompts you to choose the `LICENSE` to generate. All licenses
+   * from [github/choosealicense.com](https://github.com/github/choosealicense.com) are
+   * available.
    *
    * ```sh
    * $ gen license
    * $ gen license --dest ./docs
-   * $ gen dest license
    * # or
    * $ gen license:choose
    * $ gen license:choose --dest ./docs
-   * $ gen dest license:choose
    * ```
-   * @name license
+   * @name default
    * @api public
    */
 
