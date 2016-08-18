@@ -17,7 +17,7 @@ module.exports = function(app) {
   app.use(require('./generators/tasks'));
 
   /**
-   * Middleware for renaming dest files
+   * Middleware for renaming generated files
    */
 
   app.preWrite(/\.tmpl$/, function(file, next) {
@@ -43,7 +43,10 @@ module.exports = function(app) {
    * @api public
    */
 
-  app.task('default', ['choose']);
+  app.task('default', ['license']);
+  app.task('license', function(cb) {
+    app.build(app.options.defaultLicense || ['choose'], cb);
+  });
   app.task('choose', function(cb) {
     var options = {
       message: 'Choose the license to generate',
@@ -52,6 +55,7 @@ module.exports = function(app) {
         return new RegExp(str, 'i').test(choice.name[0]) || new RegExp(str, 'i').test(choice.id);
       }
     };
+
     choose(app, options).then(function(name) {
       app.build(name, cb);
     });
@@ -83,7 +87,7 @@ module.exports = function(app) {
 };
 
 /**
- * Plugin for generating individual gitignore tasks.
+ * Plugin for creating tasks for generating individual files.
  *
  * The alternative would be to load in templates and create tasks on-the-fly,
  * but this approach is much faster and results in a better user experience.
