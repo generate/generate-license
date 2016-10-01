@@ -45,18 +45,21 @@ module.exports = function(app) {
   app.task('license', function(cb) {
     app.build(app.options.defaultLicense || ['choose'], cb);
   });
+
   app.task('choose', function(cb) {
     var options = {
       message: 'Choose the license to generate',
       choices: choices,
       filter: function(str, choice) {
-        return new RegExp(str, 'i').test(choice.name[0]) || new RegExp(str, 'i').test(choice.id);
+        var re = new RegExp(str, 'i');
+        return re.test(choice.name[0]) || re.test(choice.id);
       }
     };
 
-    choose(app, options).then(function(name) {
-      app.build(name, cb);
-    });
+    choose(app, options)
+      .then(function(name) {
+        app.build(name, cb);
+      });
   });
 
   /**
