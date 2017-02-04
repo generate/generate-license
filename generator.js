@@ -59,7 +59,8 @@ module.exports = function(app) {
     choose(app, options)
       .then(function(name) {
         app.build(name, cb);
-      });
+      })
+      .catch(cb);
   });
 
   /**

@@ -30,10 +30,9 @@
   },
   "dependencies": {
     "generate-defaults": "^0.6.5",
-    "inquirer": "^1.2.1",
-    "inquirer-autocomplete-prompt": "^0.3.0",
     "is-valid-app": "^0.2.1",
     "lazy-cache": "^2.0.1",
+    "prompt-autocompletion": "^0.1.1",
     "through2": "^2.0.1",
     "vinyl": "^2.0.0"
   },
