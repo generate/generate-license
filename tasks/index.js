@@ -3,6 +3,7 @@
 var file = require('./file');
 
 module.exports = function(app) {
+
   /**
    * Generate a(n) `afl-3.0` license file to the current working directory.
    *

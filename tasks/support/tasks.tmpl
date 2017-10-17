@@ -1,14 +1,15 @@
 ---
 # Template based on https://github.com/pointnet/generate-templates-transform
 rename:
-  dirname: 'generators'
-  basename: 'tasks.js'
+  dirname: 'tasks'
+  basename: 'index.js'
 ---
 'use strict';
 
 var file = require('./file');
 
 module.exports = function(app) {
+
 <% tasks.forEach(function(task) { %>  /**
    * Generate a(n) `<%= task.name %>` license file to the current working directory.
    *
