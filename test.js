@@ -5,10 +5,9 @@ var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var bddStdin = require('bdd-stdin');
-var intercept = require("intercept-stdout");
+var intercept = require('intercept-stdout');
 var generate = require('generate');
 var npm = require('npm-install-global');
-var gm = require('global-modules');
 var del = require('delete');
 var generator = require('./');
 var app;
@@ -63,7 +62,7 @@ describe('generate-license', function() {
     unhookIntercept();
   });
 
-  beforeEach(function() {
+  beforeEach(function(cb) {
     app = generate({silent: true});
     app.cwd = actual();
     app.option('dest', actual());
@@ -79,6 +78,7 @@ describe('generate-license', function() {
         url: 'https://github.com/jonschlinkert'
       }
     });
+    del(actual(), cb);
   });
 
   describe('plugin', function() {
@@ -161,6 +161,10 @@ describe('generate-license', function() {
     it('should run the `mit` task when defined explicitly', function(cb) {
       app.register('license', generator);
       app.generate('license:mit', exists('LICENSE', /MIT License/, cb));
+    });
+    it('should run the `lgpl-3.0` task when defined explicitly', function(cb) {
+      app.register('license', generator);
+      app.generate('license:lgpl-3.0', exists('LICENSE.lesser', /GNU LESSER/, cb));
     });
     it('should run the default task on the generator', function(cb) {
       bddStdin('\n');

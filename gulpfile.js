@@ -58,7 +58,7 @@ gulp.task('convert', function(cb) {
     .pipe(gulp.dest(function(file) {
       file.extname = '.tmpl';
       return 'templates';
-    }))
+    }));
 });
 
 gulp.task('data', function(cb) {

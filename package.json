@@ -1,6 +1,6 @@
 {
   "name": "generate-license",
-  "description": "Generate a license file for a GitHub project.",
+  "description": "Generate a license file. Choose any of the licenses supported by https://github.com/github/choosealicense.com.",
   "version": "0.6.1",
   "homepage": "https://github.com/generate/generate-license",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
@@ -16,9 +16,9 @@
   "license": "MIT",
   "files": [
     "generator.js",
-    "generators",
     "index.js",
     "lib",
+    "tasks",
     "templates"
   ],
   "main": "index.js",
@@ -29,28 +29,27 @@
     "test": "mocha"
   },
   "dependencies": {
-    "generate-defaults": "^0.6.5",
-    "is-valid-app": "^0.2.1",
-    "lazy-cache": "^2.0.1",
+    "extend-shallow": "^2.0.1",
+    "generate-defaults": "^0.6.6",
+    "is-valid-app": "^0.3.0",
     "prompt-autocompletion": "^0.1.1",
-    "through2": "^2.0.1",
-    "vinyl": "^2.0.0"
+    "through2": "^2.0.3",
+    "vinyl": "^2.1.0"
   },
   "devDependencies": {
     "bdd-stdin": "^0.2.0",
-    "delete": "^0.3.2",
-    "extend-shallow": "^2.0.1",
-    "generate": "^0.13.1",
-    "gh-clone": "^0.5.0",
-    "global-modules": "^0.2.3",
+    "delete": "^1.1.0",
+    "generate": "^0.14.0",
+    "gh-clone": "^1.0.0",
+    "global-modules": "^1.0.0",
     "gulp": "^3.9.1",
-    "gulp-format-md": "^0.1.11",
+    "gulp-format-md": "^1.0.0",
     "helper-changelog": "^0.3.0",
     "intercept-stdout": "^0.1.2",
-    "js-yaml": "^3.6.1",
-    "mocha": "^3.1.0",
-    "npm-install-global": "^0.1.2",
-    "parser-front-matter": "^1.6.2"
+    "js-yaml": "^3.10.0",
+    "mocha": "^3.0.1",
+    "npm-install-global": "^1.0.0",
+    "parser-front-matter": "^1.6.4"
   },
   "keywords": [
     "AFL-3.0",
