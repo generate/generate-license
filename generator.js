@@ -3,7 +3,7 @@
 var isValid = require('is-valid-app');
 var choices = require('./tasks/choices');
 var choose = require('./lib/choose');
-var tasks = require('./lib/tasks');
+var tasks = require('./tasks');
 
 module.exports = function(app) {
   if (!isValid(app, 'generate-license')) return;
